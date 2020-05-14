@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b21ac5d-cabd-4c03-86f1-53c8ae97e84f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="directorio" class="java.lang.String"/>
+	<parameter name="canth" class="java.lang.Double"/>
+	<field name="tipo" class="java.lang.Character"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="hora" class="java.sql.Time"/>
+	<field name="administrativo" class="entity.Administrativo"/>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center">
+				<reportElement x="153" y="300" width="249" height="203" uuid="97d26024-0954-44f0-9232-f859685cbfa2"/>
+				<imageExpression><![CDATA[$P{directorio}+"/uader-logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<image scaleImage="RetainShape">
+				<reportElement x="-18" y="-19" width="297" height="72" uuid="9028b528-90f8-4724-a009-634a24759219"/>
+				<imageExpression><![CDATA[$P{directorio}+"/uader logo.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="455" y="-11" width="80" height="20" uuid="55cc5f69-293a-48a4-9053-a79b339ad37b"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="535" y="-11" width="40" height="20" uuid="ed404a71-fb89-418c-a1c7-a404063d53a8"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="355" y="33" width="200" height="20" uuid="eb0a9d0d-a08c-488f-baa4-41a91ed90ae7"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="235" y="13" width="320" height="20" uuid="3d7f117d-5d39-40b6-95e7-4ca67224abd8"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{administrativo}.getPersona().getApellido()+" "+$F{administrativo}.getPersona().getNombre()+" - "+$F{administrativo}.getPersona().getDni()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="20" width="555" height="1" forecolor="#B9EDED" uuid="77c0d5ee-e581-4631-8fc1-1b2c4205ebab"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1" uuid="48920497-23f3-4bd1-a646-24918f79ccaf"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="10" y="0" width="109" height="20" uuid="8d85b02f-7cd6-426e-bf43-499a33567c21"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Fecha y Hora"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="48" height="20" uuid="3f2a97f2-7f15-46bb-a3b1-d94a7d415b60"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Tipo"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="345" height="20" uuid="7d24e527-87bd-446a-98fa-e0431266c4eb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Detalle"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="0" width="125" height="15" uuid="320afd51-2b05-4785-898a-752845128b79"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}.toString()+" - "+$F{hora}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="48" height="15" uuid="9f2e5823-c85e-44ca-824d-00c67fa98bca"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo}=='E') ? "Entrada" : "Salida"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="345" height="15" uuid="6c9f1333-6ee8-4cf6-9b09-4295135faf56"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{administrativo}.getCargo()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="0" width="555" height="1" uuid="d6b2f8c5-f201-4cb7-9d12-18006a23a8d7"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="20" uuid="f4a1541b-81a7-42aa-8772-e6dabcab57ae"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de Horas: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="95927462-1b46-4f99-9f7e-0f9576d389af"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat(".##").format($P{canth})]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>
